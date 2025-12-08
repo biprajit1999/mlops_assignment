@@ -1,0 +1,34 @@
+{{- if .Values }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mlops-assignment.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "mlops-assignment.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "mlops-assignment.name" . }}
+    spec:
+      containers:
+        - name: ml-service
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+{{- end }}
