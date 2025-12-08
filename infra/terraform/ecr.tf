@@ -5,5 +5,8 @@ resource "aws_ecr_repository" "app" {
   tags = {
     Terraform   = "true"
     Environment = "dev"
+    Project     = "mlops"
+    Owner       = "biprajit1999"
+    Name        = "mlops-assignment-ecr"
   }
 }

@@ -1,6 +1,9 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 19.0"
+  # Use a release that accepts the `create_vpc`, `node_groups` and `manage_aws_auth` inputs
+  # (module API changed in later major versions). Pin to v18.x for compatibility.
+  # Pin to a stable older release that accepts these inputs
+  version = "~> 16.0"
 
   cluster_name    = var.cluster_name
   cluster_version = "1.27"
@@ -21,5 +24,7 @@ module "eks" {
   tags = {
     Terraform   = "true"
     Environment = "dev"
+    Project     = "mlops"
+    Owner       = "biprajit1999"
   }
 }

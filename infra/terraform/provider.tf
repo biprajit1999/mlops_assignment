@@ -11,3 +11,14 @@ terraform {
 provider "aws" {
   region = var.aws_region
 }
+
+// Apply default tags to all resources created by the AWS provider
+provider "aws" {
+  region = var.aws_region
+  default_tags {
+    tags = {
+      Project = "mlops"
+      Owner   = "biprajit1999"
+    }
+  }
+}
