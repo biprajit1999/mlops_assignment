@@ -1,0 +1,117 @@
+name: Build, Push to ECR and Deploy to EKS
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  TF_WORKING_DIR: infra/terraform
+
+jobs:
+  terraform:
+    name: Terraform apply
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Terraform Init
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform init
+
+      - name: Terraform Apply
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform apply -auto-approve
+
+      - name: Get outputs
+        id: tf_outputs
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: |
+          echo "ECR_URL=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
+          echo "CLUSTER_NAME=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
+          echo "LB_ROLE_ARN=$(terraform output -raw lb_role_arn)" >> $GITHUB_OUTPUT
+
+  build-and-deploy:
+    name: Build and deploy to EKS
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to ECR
+        run: |
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.terraform.outputs.ECR_URL || steps.tf_outputs.outputs.ECR_URL || github.event.inputs.ecr_url }} || true
+
+      - name: Setup Python and train model
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python src/train.py --output models/model.pkl
+
+      - name: Build image
+        run: |
+          ECR_URL=$(cd infra/terraform && terraform output -raw ecr_repository_url)
+          docker build -t mlops-assignment:latest .
+          docker tag mlops-assignment:latest ${ECR_URL}:latest
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $(echo ${ECR_URL} | cut -d'/' -f1)
+          docker push ${ECR_URL}:latest
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: '1.27.0'
+
+      - name: Update kubeconfig
+        run: |
+          CLUSTER_NAME=$(cd infra/terraform && terraform output -raw cluster_name)
+          aws eks update-kubeconfig --name $CLUSTER_NAME --region ${{ secrets.AWS_REGION }}
+
+      - name: Create ServiceAccount for ALB Controller
+        run: |
+          LB_ROLE_ARN=$(cd infra/terraform && terraform output -raw lb_role_arn)
+          cat <<EOF | kubectl apply -f -
+          apiVersion: v1
+          kind: ServiceAccount
+          metadata:
+            name: aws-load-balancer-controller
+            namespace: kube-system
+            annotations:
+              eks.amazonaws.com/role-arn: ${LB_ROLE_ARN}
+          EOF
+
+      - name: Install AWS Load Balancer Controller
+        run: |
+          helm repo add eks https://aws.github.io/eks-charts
+          helm repo update
+          CLUSTER_NAME=$(cd infra/terraform && terraform output -raw cluster_name)
+          helm upgrade --install aws-load-balancer-controller eks/aws-load-balancer-controller \
+            -n kube-system \
+            --set clusterName=${CLUSTER_NAME} \
+            --set serviceAccount.create=false \
+            --set serviceAccount.name=aws-load-balancer-controller \
+            --set region=${{ secrets.AWS_REGION }}
+
+      - name: Deploy to cluster
+        run: |
+          ECR_URL=$(cd infra/terraform && terraform output -raw ecr_repository_url)
+          export IMAGE=${ECR_URL}:latest
+          envsubst < deploy/k8s-deployment.yaml | kubectl apply -f -
+          kubectl apply -f deploy/k8s-service.yaml
+          # Apply ALB Ingress (will create an ALB via the controller)
+          kubectl apply -f deploy/k8s-ingress.yaml

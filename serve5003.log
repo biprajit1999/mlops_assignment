@@ -1,0 +1,82 @@
+ * Serving Flask app 'serve'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5003
+ * Running on http://192.168.3.103:5003
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [09/Dec/2025 00:43:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:06] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:24] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:40] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:41] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:41] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:47] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:48] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:48] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:48] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:49] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:53] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:53] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:54] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:54] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:43:55] "[36mGET / HTTP/1.1[0m" 304 -
+127.0.0.1 - - [09/Dec/2025 00:43:56] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:45:39] "[36mGET / HTTP/1.1[0m" 304 -
+127.0.0.1 - - [09/Dec/2025 00:45:41] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:45:45] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:46:06] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:46:27] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:46:41] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:51:20] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:51:21] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:10] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:15] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:27] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:29] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:34] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:42] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:48] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:49] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:49] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:50] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:50] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:53] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:54] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:54] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:54] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:54] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:52:58] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:02] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:02] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:02] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:07] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:07] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:07] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:07] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:12] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:13] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:13] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:17] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:18] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:23] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:31] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:38] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:38] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:39] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:43] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:53:59] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:04] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:09] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:14] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:15] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:15] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:15] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:20] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:20] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:21] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:25] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:25] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:25] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [09/Dec/2025 00:54:30] "POST /predict HTTP/1.1" 200 -
