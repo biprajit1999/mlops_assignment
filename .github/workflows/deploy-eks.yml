@@ -2,7 +2,7 @@ name: Build, Push to ECR and Deploy to EKS
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, ci/ecr-push ]
 
 env:
   TF_WORKING_DIR: infra/terraform
