@@ -11,8 +11,9 @@ output "cluster_certificate_authority_data" {
   value = module.eks.cluster_certificate_authority_data
 }
 
-output "ecr_repository_url" {
-  value = aws_ecr_repository.app.repository_url
+output "ecr_image_uri" {
+  description = "The image URI (including tag) that will be deployed to EKS"
+  value       = var.ecr_image_uri
 }
 
 output "lb_role_arn" {

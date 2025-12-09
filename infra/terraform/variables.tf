@@ -32,3 +32,9 @@ variable "subnets" {
     "subnet-058bea1fb48873bfb",
   ]
 }
+
+variable "ecr_image_uri" {
+  description = "Full image URI (including tag) to deploy to EKS. Example: 670880232822.dkr.ecr.ap-northeast-1.amazonaws.com/mlops:latest"
+  type        = string
+  default     = "670880232822.dkr.ecr.ap-northeast-1.amazonaws.com/mlops:latest"
+}
